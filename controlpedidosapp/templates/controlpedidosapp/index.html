@@ -49,10 +49,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="col-xs-2">
-                <button id="btnAbarrotes" type="button" class="btn btn-default recorrebtn" data-toggle="modal" data-target="#modalCreaDestinatario">Abarrotes</button>
+                <button id="btnAbarrotes" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalCreaDestinatario">Abarrotes</button>
             </div>
             <div class="col-xs-2">
-                <button id="btnLacteos" type="button" class="btn btn-default recorrebtn" data-toggle="modal" data-target="#modalCreaDestinatario">Lacteos</button>
+                <button id="btnLacteos" type="button" class="btn btn-default" data-toggle="modal" data-target="#modalCreaDestinatario">Lacteos</button>
             </div>
             <div class="col-xs-2">
                 <button id="btnAseo" type="button" class="btn btn-default recorrebtn" data-toggle="modal" data-target="#modalCreaDestinatario">Aseo</button>
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modalCreaDestinatario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modalDinamicoProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -80,12 +80,13 @@
                         <div class="col-md-12">
                             <div class="campo-gestion">
                                 <div class="titulo-div-gestion">
-                                    <label class="titulo-campo-gestion">Abarrotes</label>
+                                    <label id="tituloModal" class="titulo-campo-gestion"></label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 //ingresar aca las listas de abarrotes
 
                 <div class="modal-footer">
@@ -106,10 +107,42 @@
 
     <script language="javascript">
         function inicializacion(){
+            var titulo = "";
             var boton_seleccion = "";
-            $.each($(".recorrebtn"), function(index, val){
-                if 
-            })
+            
+            var levantaModal = function(titulo){
+                $('#tituloModal').html(titulo);
+                $('#modalDinamicoProductos').modal("show");
+            };
+
+            $('#btnAbarrotes').click(function(){
+                titulo = "Abarrotes";
+                levantaModal(titulo);
+            });
+            $('#btnLacteos').click(function(){
+                titulo = "Lacteos";
+                levantaModal(titulo);
+            });
+
+            $("#btnAseo").click(function(){
+                titulo = "Aseo";
+                levantaModal(titulo);
+            });
+
+            $("#btnFrutasyVerduras").click(function(){
+                titulo = "Frutas y Verduras";
+                levantaModal(titulo);
+            });
+
+            $("#btnEnlatados").click(function(){
+                titulo = "Enlatados";
+                levantaModal(titulo);
+            });
+
+            $("#btnOtros").click(function(){
+                titulo = "Otros";
+                levantaModal(titulo);
+            });
 
 
         }

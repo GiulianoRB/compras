@@ -114,6 +114,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-xs-6">
+                                <table id="tablaproductos"></table>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Marca</th>
+                                    <th>Precio</th>
+                                </tr>
+                                <tr id="listamarca">
+
+                                </tr>
+                                <tr id="listaprecio">
+
+                                </tr>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="btnNuevoDestinatarioModal" type="button" class="btn btn-primary">Guardar</button>
@@ -134,19 +152,21 @@
     <script language="javascript">
         function inicializacion() {
             var titulo = "";
-            
-            var levantaModal = function (titulo, aCategoria, aProductos) {
+
+            //
+            var levantaModal = function (titulo, aCategoria, aProductos, aMarca, aPrecio) {
                 //titulo del modal
                 $('#tituloModal').html(titulo);
                 //limpia los campos antes de llenar los select
                 $('#categoria, #producto, #marca').empty();
-                //llenado del combobox (select)
+                //llenado del combobox (categoria)
                 $.each(aCategoria, function (index, val) {
                     $('#categoria').append($('<option>', {
                         value: index,
                         text: this
                     }));
                 });
+                //llenado del combo producto a partir de la seleccion en categoria
                 $('select#categoria').on('change', function () {
                     var seleccion = $(this).val();
                     if (seleccion == 1) {
@@ -159,6 +179,36 @@
                         });
                     }
                 });
+
+                $('select#producto').on('change', function () {
+                    var seleccion = $(this).val();
+                    if (seleccion == 1) {
+
+                        $.each(aMarca, function (index, val) {
+
+                            var flag = false;
+                            if (index != 0) {
+                                //index = index + 1;
+                                flag = true;
+                            }
+                            if (flag) {
+                                var table = $('#tablaproductos');
+                                var linea = $('<tr></tr>').attr({ class: ["class1", "class2", "class3"].join(' ') }).appendTo(table);
+                                $('<td></td>').text(this).appendTo(linea);
+                                // $.each(aPrecio, function(index, val){
+                                //     if (index == 0){
+                                //         index = index + 1;
+                                //     }
+                                //     var linea2 = $('<tr></tr>').attr({ class: ["class1", "class2", "class3"].join(' ') }).appendTo(table);
+                                //     $('<td></td>').text(this).appendTo(linea2);
+
+                                // });
+
+                            }
+
+                        });
+                    }
+                });
                 //despliega el modal con la informacion
                 $('#modalDinamicoProductos').modal("show");
             };
@@ -167,8 +217,15 @@
                 titulo = "Abarrotes";
                 var aCategoria = ["Seleccione Categoria", "Legumbres", "Pastas"];
                 var aProductos = ["Seleccione Producto", "Porotos", "Lentejas", "Garbanzos"];
-                levantaModal(titulo, aCategoria, aProductos);
-            });           
+                var aMarca = ["Sleccione Marca", "Campo Lindo", "Dos Caballos", "Wasil", "San Jose"];
+                var aPrecio = ["", "$1500", "$1250", "$1550", "$2000"];
+                levantaModal(titulo, aCategoria, aProductos, aMarca, aPrecio);
+            });
+
+            $("#btnLacteos").click(function () {
+                titulo = "Lacteos";
+                levantaModal(titulo);
+            });
 
             $("#btnAseo").click(function () {
                 titulo = "Aseo";
